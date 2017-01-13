@@ -11,7 +11,9 @@ html, body {
   height: 800px;
   padding: 0;
   margin: 0;
-  overflow: hidden; }
+  overflow: hidden; 
+background: black;
+}
 
 #outputVideo {
   z-index: 0; }
