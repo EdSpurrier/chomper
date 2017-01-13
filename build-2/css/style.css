@@ -200,7 +200,7 @@ background: black;
   -webkit-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
-  border: 1px solid white; }
+   }
 
 #motion-control-helper {
   width: 600px;
