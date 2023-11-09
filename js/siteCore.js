@@ -1928,11 +1928,13 @@ function startMotionTracking() {
                     navigator.getUserMedia(videoSelector, function(stream) {
                         headtrackerStatus("camera found");
                         this.stream = stream;
+                        video.srcObject = stream;  // Use srcObject to attach the stream to the video element.
+                        /* video.play();
                         if (video.mozCaptureStream) {
                             video.mozSrcObject = stream;
                         } else {
                             video.src = window.URL && window.URL.createObjectURL(stream) || stream;
-                        }
+                        } */
                         video.play();
                     }.bind(this), function() {
                         headtrackerStatus("no camera");
@@ -2249,7 +2251,7 @@ function startMotionTracking() {
         var scale_upto = Math.floor(Math.log(Math.min(cascade.width, cascade.height)) / Math.log(scale));
         var pyr = new Array((scale_upto + next * 2) * 4);
         pyr[0] = canvas;
-        pyr[0].data = pyr[0].getContext("2d").getImageData(0, 0, pyr[0].width, pyr[0].height).data;
+        pyr[0].data = pyr[0].getContext("2d", { willReadFrequently: true }).getImageData(0, 0, pyr[0].width, pyr[0].height).data;
         var i, j, k, x, y, q;
         for (i = 1; i <= interval; i++) {
             pyr[i * 4] = document.createElement("canvas");
@@ -18648,6 +18650,7 @@ function startMotionTracking() {
     headtrackr.getWhitebalance = function(canvas) {
         var avggray, avgr, avgb, avgg;
         var canvasContext = canvas.getContext("2d");
+        canvasContext.willReadFrequently = true;
         var image = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
         var id = image.data;
         var imagesize = image.width * image.height;
